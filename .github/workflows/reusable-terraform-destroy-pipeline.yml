@@ -51,7 +51,6 @@ jobs:
       - name: Select/Create Workspace
         run: terraform workspace select -or-create ${{ inputs.environment }}
 
-      # 🔥 SAFETY STEP (optional but recommended)
       - name: Terraform Plan Destroy
         run: |
           terraform plan \
@@ -60,7 +59,6 @@ jobs:
             -var-file="${{ inputs.environment }}.tfvars" \
             -var="aws_region=${{ env.AWS_REGION }}"
 
-      # ⚠️ Confirm before destroy (use environment protection in GitHub)
       - name: Terraform Destroy
         run: |
           terraform destroy \
