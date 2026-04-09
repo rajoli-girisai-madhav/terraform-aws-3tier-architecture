@@ -134,5 +134,4 @@ variable "app_tags" {
 variable "db_password" {
   description = "change password as you wish"
   type = string
-  sensitive = true
 }
