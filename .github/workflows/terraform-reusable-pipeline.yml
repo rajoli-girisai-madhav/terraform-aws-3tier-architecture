@@ -23,6 +23,7 @@ jobs:
       TF_VAR_aws_region: ${{ inputs.AWS_REGION }}
       TF_VAR_environment: ${{ inputs.environment }}
       TF_VAR_project: myapp
+      TF_VAR_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
       
 
     steps:
@@ -83,6 +84,7 @@ jobs:
       TF_VAR_aws_region: ${{ inputs.AWS_REGION }}
       TF_VAR_environment: ${{ inputs.environment }}
       TF_VAR_project: myapp
+      TF_VAR_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
 
     steps:
       - name: Checkout code
