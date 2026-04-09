@@ -34,7 +34,10 @@ variable "sg-id" {
 variable "key_name" {
     description = "key_name for my launch template"
     type = string
-    default = "test-key" # already existing in my key_pairs
+}
+variable "public_key" {
+  description = "SSH public key"
+  type        = string
 }
 variable "user_data" {
     type = string

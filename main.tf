@@ -37,6 +37,11 @@ module "dbsg" {
   }
 }
 
+resource "aws_key_pair" "deployer" {
+  key_name   = "terraform-project-key"
+  public_key = var.public_key
+}
+
 # Creating Web-Tier
 module "Web-Tier" {
   source = ".//ASG-module"
@@ -48,6 +53,7 @@ module "Web-Tier" {
   ami-id = data.aws_ami.amzlinux.id
   instance_type = var.web_instance_type
   sg-id = [module.websg.security_group_id]
+  key_name = aws_key_pair.deployer.key_name
   user_data = base64encode(file("amzninstall.sh"))
   name = var.web_name
   min_size = var.web_min_size
@@ -68,6 +74,7 @@ module "App-Tier" {
   ami-id = data.aws_ami.ubuntu.id
   instance_type = var.app_instance_type
   sg-id = [module.appsg.security_group_id]
+  key_name = aws_key_pair.deployer.key_name
   user_data = ""
   name = var.app_name
   min_size = var.app_min_size
