@@ -88,7 +88,7 @@ module "App-Tier" {
 # DB Subnet Group
 # You MUST add both subnets here so RDS generally knows where it is allowed to exist.
 resource "aws_db_subnet_group" "project_db_subnet" {
-  name       = "my-db-subnet-group"
+  name       = "${local.name_prefix}-db-subnet-group"
   subnet_ids = module.project_vpc.db_tier_subnet_ids
   tags = {
     Name = "${local.name_prefix}-db-subnet-group"
