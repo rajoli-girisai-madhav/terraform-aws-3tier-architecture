@@ -1,4 +1,4 @@
-variable "aws_region_name" {
+variable "aws_region" {
   description = "To specify region, where I wish to deploy my complete 3-tier project"
   type = string
 }
