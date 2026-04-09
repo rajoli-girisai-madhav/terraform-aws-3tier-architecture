@@ -104,7 +104,6 @@ resource "aws_db_instance" "writer_instance" {
   db_name  = "appdb"
   # Placement Control
   db_subnet_group_name = aws_db_subnet_group.project_db_subnet.name
-  availability_zone    = "ap-south-1a" # Forces placement into 'subnet_writer'
   # Network Security
   vpc_security_group_ids = [module.dbsg.security_group_id]
   publicly_accessible    = false
@@ -125,7 +124,6 @@ resource "aws_db_instance" "replica" {
   # Instance Spec (Can match or differ from writer)
   instance_class = "db.t3.micro"
   storage_type   = "gp3"
-  availability_zone = "ap-south-1b"
   # Network Security
   vpc_security_group_ids = [module.dbsg.security_group_id]
   publicly_accessible    = false
