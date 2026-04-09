@@ -84,14 +84,14 @@ resource "aws_db_subnet_group" "project_db_subnet" {
   name       = "my-db-subnet-group"
   subnet_ids = module.project_vpc.db_tier_subnet_ids
   tags = {
-    Name = "My DB Subnet Group"
+    Name = "${local.name_prefix}-db-subnet-group"
   }
 }
 
 # Writer Instance (Pinned to Subnet 1 via AZ)
 
 resource "aws_db_instance" "writer_instance" {
-  identifier = "mysql-writer-db"
+  identifier = "${local.name_prefix}-writer-db"
   # Engine & Storage
   engine            = "mysql"
   engine_version    = "8.0"
@@ -111,14 +111,14 @@ resource "aws_db_instance" "writer_instance" {
   backup_retention_period = 1
   skip_final_snapshot     = true
   tags = {
-    Name = "MySQL Writer"
+    Name = "${local.name_prefix}-writer-db"
   }
 }
 
 # Read Replica (Pinned to Subnet 2 ('subnet_reader') via AZ)
 
 resource "aws_db_instance" "replica" {
-  identifier = "mysql-reader-db"
+  identifier = "${local.name_prefix}-reader-db"
   # Replication Link
   replicate_source_db = aws_db_instance.writer_instance.identifier
   # Instance Spec (Can match or differ from writer)
@@ -131,7 +131,7 @@ resource "aws_db_instance" "replica" {
   backup_retention_period = 0
   skip_final_snapshot     = true
   tags = {
-    Name = "MySQL Read Replica"
+    Name = "${local.name_prefix}-reader-db"
   }
 }
 

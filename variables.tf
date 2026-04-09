@@ -130,3 +130,12 @@ variable "db_password" {
   description = "change password as you wish"
   type = string
 }
+
+variable "environment" {
+  description = "Environment name (dev/qa/prod)"
+}
+
+variable "project" {
+  description = "Project name"
+  default     = "myapp"
+}
