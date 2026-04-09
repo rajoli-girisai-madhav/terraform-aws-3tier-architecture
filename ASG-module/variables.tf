@@ -35,10 +35,7 @@ variable "key_name" {
     description = "key_name for my launch template"
     type = string
 }
-variable "public_key" {
-  description = "SSH public key"
-  type        = string
-}
+
 variable "user_data" {
     type = string
   description = "add any user data"
