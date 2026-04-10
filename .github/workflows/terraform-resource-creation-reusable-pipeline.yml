@@ -11,7 +11,7 @@ on:
         type: string
     secrets:
       DB_PASSWORD:
-      required: true
+        required: true
 
 
 jobs:
