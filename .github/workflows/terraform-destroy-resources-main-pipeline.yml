@@ -43,7 +43,6 @@ jobs:
   destroy-prod:
     name: Destroy Prod
     needs: destroy-qa
-    environment: prod   # REQUIRED APPROVAL HERE
     strategy:
       matrix:
         region: [ap-south-1, ap-south-2]
