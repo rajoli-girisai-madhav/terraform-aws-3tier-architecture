@@ -61,6 +61,7 @@ jobs:
           echo "AWS_REGION='${{ env.AWS_REGION }}'"
           echo "TF_BACKEND_REGION='${{ env.TF_BACKEND_REGION }}'"
           echo "ENV='${{ inputs.environment }}'"
+          echo "TF_VAR_PUBLIC_KEY: ${{ secrets.TF_VAR_PUBLIC_KEY }}"
 
       - name: Terraform Init
         run: |
