@@ -23,5 +23,3 @@ variable "ingress_rules" {
     description = string
   }))
 }
-
-
