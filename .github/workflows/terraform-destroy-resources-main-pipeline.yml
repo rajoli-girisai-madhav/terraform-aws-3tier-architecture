@@ -24,7 +24,7 @@ jobs:
 
   destroy-qa:
     name: Destroy QA
-    needs: deploy-dev
+    needs: destroy-dev
     strategy:
       matrix:
         region: [us-west-1, us-west-2]
@@ -42,7 +42,7 @@ jobs:
 
   destroy-prod:
     name: Destroy Prod
-    needs: deploy-qa
+    needs: destroy-qa
     strategy:
       matrix:
         region: [ap-south-1, ap-south-2]
