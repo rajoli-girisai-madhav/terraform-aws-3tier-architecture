@@ -141,4 +141,3 @@ resource "aws_db_instance" "replica" {
     Name = "${local.name_prefix}-reader-db"
   }
 }
-

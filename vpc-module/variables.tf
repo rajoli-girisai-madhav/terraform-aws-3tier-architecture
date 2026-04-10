@@ -17,4 +17,3 @@ variable "db_tier_subnet_cidr" {
   description = "IPv4 CIDR list for creating pvt Subnets for db-tier in 3-Tier Architecture Project"
   type        = list(string)
 }
-
