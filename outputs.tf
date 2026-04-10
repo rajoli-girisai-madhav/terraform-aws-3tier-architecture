@@ -81,4 +81,3 @@ output "reader_db_dns_hostname" {
   description = "DNS hostname of the read replica RDS instance"
   value       = aws_db_instance.replica.address
 }
-
