@@ -1,10 +1,5 @@
-variable "aws_region_name" {
+variable "aws_region" {
   description = "To specify region, where I wish to deploy my complete 3-tier project"
-  type = string
-}
-
-variable "aws_profile_name" {
-  description = "To provide the profile name of the IAM userof my aws account"
   type = string
 }
 
@@ -48,6 +43,11 @@ variable "db_inbound_rules" {
   }))
 }
 
+variable "public_key" {
+  description = "SSH public key"
+  type        = string
+}
+
 variable "web_alb_name" {
   description = "Provide the name for web-tier application load balancer"
   type = string
@@ -68,6 +68,7 @@ variable "web_instance_type" {
   description = "Instance type for launched instances"
   type = string
 }
+
 variable "web_name" {
   description = "provide a name for my AutoScaling Group"
   type = string
@@ -134,5 +135,13 @@ variable "app_tags" {
 variable "db_password" {
   description = "change password as you wish"
   type = string
-  sensitive = true
+}
+
+variable "environment" {
+  description = "Environment name (dev/qa/prod)"
+}
+
+variable "project" {
+  description = "Project name"
+  default     = "myapp"
 }
