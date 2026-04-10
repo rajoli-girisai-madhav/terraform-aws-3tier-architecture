@@ -19,5 +19,4 @@ jobs:
       environment: dev
       aws_region: ${{ matrix.region }}
     secrets:
-      inherit: true
       DB_PASSWORD: ${{ secrets.DB_PASSWORD_DEV }}
