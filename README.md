@@ -15,10 +15,8 @@ It supports:
 
 - [🧱 Architecture Overview](#-architecture-overview)
 - [⚙️ Deployment Strategy](#️-deployment-strategy)
-  - [Multi-Region Deployment](#-multi-region-deployment)
-  - [Multi-Environment Deployment](#-multi-environment-deployment)
-  - [CI/CD Workflow Design](#-cicd-workflow-design)
 - [📁 Project Structure](#-project-structure)
+- [🚀 Deployment Flow](#-deployment-flow)
 - [🔧 Prerequisites](#-prerequisites)
 - [🪪 Step 1: Create Key Pair](#-step-1-create-key-pair)
 - [🔐 Step 2: Configure GitHub Secrets](#-step-2-configure-github-secrets)
@@ -35,17 +33,20 @@ It supports:
 The infrastructure follows a **3-tier architecture pattern**:
 
 - **Web Tier** → Public-facing EC2 instances behind ALB  
-- **App Tier** → Private EC2 instances (business logic)  
+- **App Tier** → Private EC2 instances  
 - **Database Tier** → RDS (primary + read replica)
+
+## 📊 Architecture Diagram
+
+<p align="center">
+  <img src="assets/architecture.png" alt="AWS 3-Tier Architecture" width="800"/>
+</p>
 
 ---
 
 # ⚙️ Deployment Strategy
 
 ## 🔹 Multi-Region Deployment
-
-- Implemented using **GitHub Actions matrix strategy**
-- Each environment deploys to **different regions**
 
 | Environment | Regions |
 |------------|--------|
@@ -56,8 +57,6 @@ The infrastructure follows a **3-tier architecture pattern**:
 ---
 
 ## 🔹 Multi-Environment Deployment
-
-We follow a **promotion-based deployment model**:
 
 | Environment | Deployment Type |
 |------------|----------------|
@@ -75,18 +74,15 @@ This project uses **GitHub Actions reusable workflows**.
 - Trigger: `push`
 - Uses reusable workflow
 - Handles: init → validate → plan → apply
-- Supports:
-  - Multi-region (matrix)
-  - Multi-environment promotion
 
 ### 🔸 Resource Destruction
-- Trigger: `workflow_dispatch` (manual)
+- Trigger: `workflow_dispatch`
 - Uses reusable workflow
 - Safely destroys infrastructure
 
 ---
 
-## 🔹 CI/CD Flow
+# 🚀 Deployment Flow
 
 ```mermaid
 flowchart TD
@@ -94,29 +90,19 @@ flowchart TD
 A[Code Push] --> B[Terraform Validate]
 B --> C[Terraform Plan]
 
-%% DEV
 C --> D[Deploy DEV]
-subgraph DEV
-  D --> D1[eu-west-1]
-  D --> D2[eu-west-2]
-end
+D --> D1[DEV - eu-west-1]
+D --> D2[DEV - eu-west-2]
 
-%% QA
 D --> E[Promote to QA]
-subgraph QA
-  E --> E1[us-west-1]
-  E --> E2[us-west-2]
-end
+E --> E1[QA - us-west-1]
+E --> E2[QA - us-west-2]
 
-%% PROD
 E --> F[Manual Approval]
 F --> G[Deploy PROD]
-subgraph PROD
-  G --> G1[ap-south-1]
-  G --> G2[ap-south-2]
-end
+G --> G1[PROD - ap-south-1]
+G --> G2[PROD - ap-south-2]
 
-%% DESTROY
 G --> H[Manual Trigger Destroy]
 H --> I[Destroy Infrastructure]
 ```
@@ -165,24 +151,24 @@ H --> I[Destroy Infrastructure]
 │   ├── variables.tf
 │   └── outputs.tf
 │
-├── .github
-│   └── workflows
-│       ├── terraform-resource-creation-main-pipeline.yml
-│       ├── terraform-resource-creation-reusable-pipeline.yml
-│       ├── terraform-destroy-resources-main-pipeline.yml
-│       └── terraform-destroy-resources-reusable-pipeline.yml
+├── .github/workflows
+│   ├── terraform-resource-creation-main-pipeline.yml
+│   ├── terraform-resource-creation-reusable-pipeline.yml
+│   ├── terraform-destroy-resources-main-pipeline.yml
+│   └── terraform-destroy-resources-reusable-pipeline.yml
 │
-└── README.md
+└── assets
+    └── architecture.png
 ```
 
 ---
 
 # 🔧 Prerequisites
 
-- AWS Account
-- IAM User with required permissions
-- GitHub Secrets configured
-- Terraform installed (optional for local runs)
+- AWS Account  
+- IAM User with required permissions  
+- GitHub Secrets configured  
+- Terraform (optional locally)  
 
 ---
 
@@ -208,10 +194,9 @@ ssh-keygen -t rsa -b 4096 -f terraform-project-key
 
 # 🧾 Step 3: Create `.tfvars` Files
 
-Create:
-- dev.tfvars
-- qa.tfvars
-- prod.tfvars
+- dev.tfvars  
+- qa.tfvars  
+- prod.tfvars  
 
 ---
 
