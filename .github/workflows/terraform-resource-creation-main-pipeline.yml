@@ -1,9 +1,9 @@
 name: Terraform Multi-Env Multi-Region Pipeline
 
-#on:
-#  push:
-#    branches:
-#      - main
+on:
+  push:
+    branches:
+      - main
 
 jobs:
 
@@ -18,4 +18,7 @@ jobs:
     with:
       environment: dev
       aws_region: ${{ matrix.region }}
-    secrets: inherit
+    secrets:
+      inherit: true
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD_DEV }}
+
