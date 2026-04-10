@@ -59,5 +59,3 @@ app_min_size = 2
 app_max_size = 4
 app_desired_capacity = 2
 app_tags = "App-Tier-Instance"
-
-db_password = "SecurePassword123!"
