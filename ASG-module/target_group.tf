@@ -14,7 +14,6 @@ resource "aws_lb_target_group" "sample_tg" {
     unhealthy_threshold = 2
   }
 }
-
 # Define listener to the Load Balancer
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.sample_alb.arn
