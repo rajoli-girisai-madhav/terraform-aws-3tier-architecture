@@ -1,4 +1,3 @@
-
 output "vpc_id" {
   description = "Capture the vpc id used in another blocks"
   value = aws_vpc.main.id
