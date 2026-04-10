@@ -1,0 +1,21 @@
+name: Terraform Multi-Env Multi-Region Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  #  DEV (parallel across regions)
+  deploy-dev:
+    name: Deploy Dev
+    strategy:
+      matrix:
+        region: [eu-west-1, eu-west-2]
+
+    uses: ./.github/workflows/terraform-resource-creation-reusable-pipeline.yml
+    with:
+      environment: dev
+      aws_region: ${{ matrix.region }}
+    secrets: inherit
