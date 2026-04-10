@@ -18,6 +18,8 @@ on:
         required: true
       TF_STATE_BUCKET:
         required: true
+      TF_VAR_PUBLIC_KEY:
+        required: true
 
 
 jobs:
